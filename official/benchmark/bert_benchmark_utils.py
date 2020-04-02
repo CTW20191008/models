@@ -23,6 +23,7 @@ import time
 # pylint: disable=g-bad-import-order
 import numpy as np
 from absl import flags
+from absl import logging
 import tensorflow.compat.v2 as tf
 # pylint: enable=g-bad-import-order
 
@@ -92,6 +93,8 @@ class BertBenchmarkBase(PerfZeroBenchmark):
         'name': 'training_loss',
         'value': stats['train_loss'],
     }]
+    logging.error("DEBUG: report FLAGS.steps_per_loop=%d", FLAGS.steps_per_loop)
+    logging.error("DEBUG: report FLAGS.train_batch_size=%d", FLAGS.train_batch_size)
     if self.timer_callback:
       metrics.append({
           'name':
