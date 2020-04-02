@@ -104,10 +104,10 @@ class BertSquadBenchmarkBase(benchmark_utils.BertBenchmarkBase):
   @flagsaver.flagsaver
   def _train_squad(self, run_eagerly=False, ds_type='mirrored'):
     """Runs BERT SQuAD training. Uses mirrored strategy by default."""
-    assert tf.version.VERSION.startswith('2.')
     self._init_gpu_and_data_threads()
     input_meta_data = self._read_input_meta_data_from_file()
     strategy = self._get_distribution_strategy(ds_type)
+    logging.error("DEBUG: FLAGS.steps_per_loop=%d", FLAGS.steps_per_loop)
 
     run_squad.train_squad(
         strategy=strategy,
@@ -118,7 +118,6 @@ class BertSquadBenchmarkBase(benchmark_utils.BertBenchmarkBase):
   @flagsaver.flagsaver
   def _evaluate_squad(self, ds_type='mirrored'):
     """Runs BERT SQuAD evaluation. Uses mirrored strategy by default."""
-    assert tf.version.VERSION.startswith('2.')
     self._init_gpu_and_data_threads()
     input_meta_data = self._read_input_meta_data_from_file()
     strategy = self._get_distribution_strategy(ds_type)
